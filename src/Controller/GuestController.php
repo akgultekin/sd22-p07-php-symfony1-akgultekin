@@ -49,4 +49,10 @@ class GuestController extends AbstractController
     {
         return new Response("Sign Up");
     }
+
+    #[Route('/order', name: 'order')]
+    public function order()
+    {
+        return new Response("Order");
+    }
 }
