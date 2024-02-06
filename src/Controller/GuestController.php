@@ -8,43 +8,43 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GuestController extends AbstractController
 {
-    #[Route('/')]
+    #[Route('/', name: 'home')]
     public function home(): Response
     {
-        return $this->render('project/home.html.twig');
+        return $this->render('base.html.twig');
     }
 
-    #[Route('/fish')]
+    #[Route('/fish', name: 'fish')]
     public function fish()
     {
         return new Response("Fish pizzas");
     }
 
-    #[Route('/meat')]
+    #[Route('/meat', name: 'meat')]
     public function meat()
     {
         return new Response("Meat pizzas");
     }
 
-    #[Route('/vegetarian')]
+    #[Route('/vegetarian', name: 'vegetarian')]
     public function vegetarian()
     {
         return new Response("Vegetarian pizzas");
     }
 
-    #[Route('/contact')]
+    #[Route('/contact', name: 'contact')]
     public function contact()
     {
         return new Response("Contact");
     }
 
-    #[Route('/login')]
+    #[Route('/login', name: 'login')]
     public function login()
     {
         return new Response("Log In");
     }
 
-    #[Route('/signup')]
+    #[Route('/signup', name: 'signup')]
     public function signup()
     {
         return new Response("Sign Up");
