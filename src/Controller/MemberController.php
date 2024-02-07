@@ -8,11 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MemberController extends AbstractController
 {
-    #[Route('/member', name: 'app_member')]
+    #[Route('/member', name: 'member')]
     public function index(): Response
     {
-        return $this->render('member/index.html.twig', [
-            'controller_name' => 'MemberController',
+        return $this->render('member/home.html.twig', [
+            'controller_name' => 'MemberController'
         ]);
     }
 }
