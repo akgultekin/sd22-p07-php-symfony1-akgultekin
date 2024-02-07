@@ -16,10 +16,10 @@ class GuestController extends AbstractController
         ]);
     }
 
-    #[Route('/fish', name: 'fish')]
-    public function fish()
+    #[Route('/fish/{id}', name: 'fish')]
+    public function fish(int $id = null)
     {
-        return new Response("Fish pizzas");
+        return new Response("Fish pizza " . $id);
     }
 
     #[Route('/meat', name: 'meat')]
