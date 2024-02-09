@@ -19,42 +19,42 @@ class GuestController extends AbstractController
     #[Route('/fish/{id}', name: 'fish')]
     public function fish(int $id = null)
     {
-        return new Response("Fish pizza " . $id);
+        return $this->render("guest/categories/fish.html.twig");
     }
 
     #[Route('/meat', name: 'meat')]
     public function meat()
     {
-        return new Response("Meat pizzas");
+        return $this->render("guest/categories/meat.html.twig");
     }
 
     #[Route('/vegetarian', name: 'vegetarian')]
     public function vegetarian()
     {
-        return new Response("Vegetarian pizzas");
+        return $this->render("guest/categories/vegetarian.html.twig");
     }
 
     #[Route('/contact', name: 'contact')]
     public function contact()
     {
-        return new Response("Contact");
+        return $this->render("guest/contact.html.twig");
     }
 
     #[Route('/login', name: 'login')]
     public function login()
     {
-        return new Response("Log In");
+        return $this->render("guest/login.html.twig");
     }
 
     #[Route('/signup', name: 'signup')]
     public function signup()
     {
-        return new Response("Sign Up");
+        return $this->render("guest/signup.html.twig");
     }
 
     #[Route('/order', name: 'order')]
     public function order()
     {
-        return new Response("Order");
+        return $this->render("guest/order.html.twig");
     }
 }
