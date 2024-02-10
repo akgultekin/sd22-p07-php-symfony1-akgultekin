@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container p-5 text-center">
-        <div class="row row-cols-1 row-cols-md-3 g-5">
+    <div class="container d-flex p-5 text-center justify-content-center align-items-center">
+        <div class="row row-cols-1 row-cols-md-3">
             <div class="col">
                 <div class="card border-0">
-                    <img src="{{ asset('img/fish-pizzas.png') }}" class="card-img-top rounded-0" alt="...">
+                    <a href="{{ path('fish') }}">
+                        <img src="{{ asset('img/fish-pizzas.png') }}" class="card-img-top img-fluid" alt="...">
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title">Vis pizza's</h5>
                     </div>
@@ -13,18 +15,21 @@
             </div>
             <div class="col">
                 <div class="card border-0">
-                    <img src="{{ asset('img/meat-pizzas.png') }}" class="card-img-top img-fluid" alt="...">
+                    <a href="{{ path('meat') }}">
+                        <img src="{{ asset('img/meat-pizzas.png') }}" class="card-img-top img-fluid" alt="...">
+                    </a>
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <h5 class="card-title">Vlees pizza's</h5>
                     </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card border-0">
-                    <img src="..." class="card-img-top" alt="...">
+                    <a href="{{ path('vegetarian') }}">
+                        <img src="{{ asset('img/vegetarian-pizzas.png') }}" class="card-img-top img-fluid" alt="...">
+                    </a>
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                        <h5 class="card-title">Vegetarische pizza's</h5>
                     </div>
                 </div>
             </div>
