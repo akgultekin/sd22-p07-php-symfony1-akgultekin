@@ -1,7 +1,16 @@
 {% extends 'base.html.twig' %}
 
+{% block header %}
+    <header id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ asset('img/header-home.png') }}" class="d-block w-100">
+            </div>
+        </div>
+    </header>
+{% endblock %}
 {% block body %}
-    <div class="container d-flex p-5 text-center justify-content-center align-items-center">
+    <div class="container d-flex p-5 my-5 text-center justify-content-center align-items-center">
         <div class="row row-cols-1 row-cols-md-3">
             <div class="col">
                 <div class="card border-0">

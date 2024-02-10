@@ -20,7 +20,7 @@
             <nav class="navbar navbar-dark navbar-expand-lg bg-success p-1">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="{{ path('home') }}">
-                        <img src="{{ asset('img/logo.png') }}" width="80" height="60">
+                        <img src="{{ asset('img/logo.png') }}" width="60" height="50">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -34,7 +34,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{{ path('fish') }}">Vis</a></li>
                                     <li><a class="dropdown-item" href="{{ path('meat') }}">Vlees</a></li>
-                                    <li><a class="dropdown-item" href="{{ path('vegetarian') }}">Veg.</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('vegetarian') }}">Vegetarisch</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -62,15 +62,15 @@
             <header id="carouselExample" class="carousel slide">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{ asset('img/header-template.png') }}" class="d-block w-100">
+                        <img src="{{ asset('img/header-home.png') }}" class="d-block w-100">
                     </div>
                 </div>
             </header>
         {% endblock %}
         {% block body %}{% endblock %}
         {% block footer %}
-        <footer class="container-fluid p-5 navbar-static-bottom bg-success text-center">
-            <p class="text-white">@ Sopranos 2024</p>
+        <footer class="container-fluid p-3 bg-success text-center">
+            <p class="text-white my-3">@ Sopranos 2024</p>
         </footer>
         {% endblock %}
     </body>
