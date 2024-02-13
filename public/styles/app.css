@@ -5,6 +5,10 @@ body {
     margin: 0;
 }
 
+.card-body {
+    white-space: nowrap;
+}
+
 .carousel-item img {
     object-fit: cover;
     object-position: center;

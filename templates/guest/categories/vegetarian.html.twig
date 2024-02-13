@@ -1,45 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block header %}
-    <header id="carouselExample" class="carousel slide">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ asset('img/header-vegetarian.png') }}" class="d-block w-100">
-            </div>
-        </div>
-    </header>
-{% endblock %}
 {% block body %}
     <div class="container d-flex p-5 my-5 text-center justify-content-center align-items-center">
         <div class="row row-cols-1 row-cols-md-3">
             <div class="col">
                 <div class="card">
-                    <a href="{{ path('fish') }}">
+                    <a class="text-decoration-none text-black" href="{{ path('fish') }}">
                         <img src="{{ asset('img/vegetarian/margherita-pizza.png') }}" class="card-img-top img-fluid" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Margherita pizza</h5>
+                            <button type="button" class="btn btn-success text-nowrap">+</button>
+                        </div>
                     </a>
-                    <div class="card-body">
-                        <h5 class="card-title">Margherita pizza</h5>
-                    </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
-                    <a href="{{ path('meat') }}">
+                    <a class="text-decoration-none text-black" href="{{ path('meat') }}">
                         <img src="{{ asset('img/vegetarian/mediterranean-veggie-pizza.png') }}" class="card-img-top img-fluid" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Mediterraenean Veggie pizza</h5>
+                            <button type="button" class="btn btn-success text-nowrap">+</button>
+                        </div>
                     </a>
-                    <div class="card-body">
-                        <h5 class="card-title">Mediterraenean Veggie pizza</h5>
-                    </div>
                 </div>
             </div>
             <div class="col">
                 <div class="card">
-                    <a href="{{ path('vegetarian') }}">
+                    <a class="text-decoration-none text-black" href="{{ path('vegetarian') }}">
                         <img src="{{ asset('img/vegetarian/pesto-veggie-pizza.png') }}" class="card-img-top img-fluid" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Pesto Veggie pizza</h5>
+                            <button type="button" class="btn btn-success text-nowrap">+</button>
+                        </div>
                     </a>
-                    <div class="card-body">
-                        <h5 class="card-title">Pesto Veggie pizza</h5>
-                    </div>
                 </div>
             </div>
         </div>
