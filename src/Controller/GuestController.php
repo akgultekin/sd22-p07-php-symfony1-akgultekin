@@ -18,10 +18,16 @@ class GuestController extends AbstractController
         ]);
     }
 
-    #[Route('/fish/{id}', name: 'fish')]
-    public function fish(int $id = null)
+    #[Route('/fish', name: 'fish')]
+    public function fish()
     {
         return $this->render("guest/categories/fish.html.twig");
+    }
+
+    #[Route('/fish/{id}', name: 'fishdetails')]
+    public function fishDetails(int $id = null)
+    {
+        return $this->render("guest/categories/details.html.twig");
     }
 
     #[Route('/meat', name: 'meat')]
