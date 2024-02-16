@@ -24,7 +24,7 @@ class GuestController extends AbstractController
         return $this->render("guest/categories/fish.html.twig");
     }
 
-    #[Route('/fish/{id}', name: 'fishdetails')]
+    #[Route('/fish/1', name: 'fish-details')]
     public function fishDetails(int $id = null)
     {
         return $this->render("guest/categories/details.html.twig");
@@ -36,10 +36,22 @@ class GuestController extends AbstractController
         return $this->render("guest/categories/meat.html.twig");
     }
 
+    #[Route('/meat/1', name: 'meat-details')]
+    public function meatDetails(int $id = null)
+    {
+        return $this->render("guest/categories/details.html.twig");
+    }
+
     #[Route('/vegetarian', name: 'vegetarian')]
     public function vegetarian()
     {
         return $this->render("guest/categories/vegetarian.html.twig");
+    }
+
+    #[Route('/vegetarian/1', name: 'vegetarian-details')]
+    public function vegetarianDetails(int $id = null)
+    {
+        return $this->render("guest/categories/details.html.twig");
     }
 
     #[Route('/contact', name: 'contact')]
