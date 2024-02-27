@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Pizzas;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,10 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class GuestController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function home(): Response
+    public function home(EntityManagerInterface $em): Response
     {
+        $categories = $em->getRepository(Category::class)->findAll();
         return $this->render('guest/home.html.twig', [
-            'controller_name' => 'GuestController'
+            'categories' => $categories
         ]);
     }
 

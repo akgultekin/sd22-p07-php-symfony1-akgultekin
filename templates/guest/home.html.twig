@@ -3,36 +3,18 @@
 {% block body %}
     <div class="container d-flex p-5 my-5 text-center justify-content-center align-items-center">
         <div class="row row-cols-1 row-cols-md-3">
+            {% for category in categories %}
             <div class="col">
                 <div class="card">
                     <a class="text-decoration-none text-black" href="{{ path('fish') }}">
-                        <img src="{{ asset('img/fish-pizzas.png') }}" class="card-img-top img-fluid" alt="...">
+                        <img src="{{ asset('img/' ~ category.image) }}" class="card-img-top img-fluid" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Vis pizza's</h5>
+                            <h5 class="card-title">{{ category.name }}</h5>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col">
-                <div class="card">
-                    <a class="text-decoration-none text-black" href="{{ path('meat') }}">
-                        <img src="{{ asset('img/meat-pizzas.png') }}" class="card-img-top img-fluid" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Vlees pizza's</h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <a class="text-decoration-none text-black" href="{{ path('vegetarian') }}">
-                        <img src="{{ asset('img/vegetarian-pizzas.png') }}" class="card-img-top img-fluid" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Vegetarische pizza's</h5>
-                        </div>
-                    </a>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
