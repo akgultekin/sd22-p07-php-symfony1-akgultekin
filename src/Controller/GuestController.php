@@ -63,13 +63,16 @@ class GuestController extends AbstractController
     }
 
     #[Route('/insert', name: 'insert')]
-    public function insert(Request $request): Response
+    public function insert(Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(CategoryType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $form->getData();
+            $category = $form->getData();
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('guest/insert.html.twig', [
