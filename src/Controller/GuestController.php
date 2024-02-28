@@ -27,7 +27,7 @@ class GuestController extends AbstractController
     public function pizzas(EntityManagerInterface $em, int $id)
     {
         $category = $em->getRepository(Category::class)->find($id);
-        return $this->render("guest/categories/pizzas.html.twig", [
+        return $this->render('guest/categories/pizzas.html.twig', [
             'category' => $category
         ]);
     }
@@ -35,31 +35,31 @@ class GuestController extends AbstractController
     #[Route('/details', name: 'details')]
     public function details(int $id = null)
     {
-        return $this->render("guest/categories/details.html.twig");
+        return $this->render('guest/categories/details.html.twig');
     }
 
     #[Route('/contact', name: 'contact')]
     public function contact()
     {
-        return $this->render("guest/contact.html.twig");
+        return $this->render('guest/contact.html.twig');
     }
 
     #[Route('/login', name: 'login')]
     public function login()
     {
-        return $this->render("guest/login.html.twig");
+        return $this->render('guest/login.html.twig');
     }
 
     #[Route('/signup', name: 'signup')]
     public function signup()
     {
-        return $this->render("guest/signup.html.twig");
+        return $this->render('guest/signup.html.twig');
     }
 
     #[Route('/order', name: 'order')]
     public function order()
     {
-        return $this->render("guest/order.html.twig");
+        return $this->render('guest/order.html.twig');
     }
 
     #[Route('/insert', name: 'insert')]
@@ -67,6 +67,13 @@ class GuestController extends AbstractController
     {
         $form = $this->createForm(CategoryType::class);
 
-        return $this->render("guest/insert.html.twig");
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $form->getData();
+        }
+
+        return $this->render('guest/insert.html.twig', [
+            'form' => $form
+        ]);
     }
 }
