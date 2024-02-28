@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Pizza;
 use App\Entity\Pizzas;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,13 +21,16 @@ class GuestController extends AbstractController
         ]);
     }
 
-    #[Route('/fish', name: 'fish')]
-    public function fish()
+    #[Route('/pizzas/{id}', name: 'pizzas')]
+    public function pizzas(EntityManagerInterface $em, int $id)
     {
-        return $this->render("guest/categories/fish.html.twig");
+        $category = $em->getRepository(Category::class)->find($id);
+        return $this->render("guest/categories/pizzas.html.twig", [
+            'category' => $category
+        ]);
     }
 
-    #[Route('/fish/1', name: 'fish-details')]
+    #[Route('/details', name: 'details')]
     public function fishDetails(int $id = null)
     {
         return $this->render("guest/categories/details.html.twig");
