@@ -5,8 +5,10 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Pizza;
 use App\Entity\Pizzas;
+use App\Form\CategoryType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,31 +33,7 @@ class GuestController extends AbstractController
     }
 
     #[Route('/details', name: 'details')]
-    public function fishDetails(int $id = null)
-    {
-        return $this->render("guest/categories/details.html.twig");
-    }
-
-    #[Route('/meat', name: 'meat')]
-    public function meat()
-    {
-        return $this->render("guest/categories/meat.html.twig");
-    }
-
-    #[Route('/meat/1', name: 'meat-details')]
-    public function meatDetails(int $id = null)
-    {
-        return $this->render("guest/categories/details.html.twig");
-    }
-
-    #[Route('/vegetarian', name: 'vegetarian')]
-    public function vegetarian()
-    {
-        return $this->render("guest/categories/vegetarian.html.twig");
-    }
-
-    #[Route('/vegetarian/1', name: 'vegetarian-details')]
-    public function vegetarianDetails(int $id = null)
+    public function details(int $id = null)
     {
         return $this->render("guest/categories/details.html.twig");
     }
@@ -82,5 +60,13 @@ class GuestController extends AbstractController
     public function order()
     {
         return $this->render("guest/order.html.twig");
+    }
+
+    #[Route('/insert', name: 'insert')]
+    public function insert(Request $request): Response
+    {
+        $form = $this->createForm(CategoryType::class);
+
+        return $this->render("guest/insert.html.twig");
     }
 }
