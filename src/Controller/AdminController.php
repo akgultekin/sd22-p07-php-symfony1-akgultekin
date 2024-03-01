@@ -2,17 +2,49 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use App\Form\CategoryType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
-    #[Route('/admin', name: 'home')]
-    public function index(): Response
+    #[Route('/admin', name: 'admin')]
+    public function home(EntityManagerInterface $em): Response
     {
+        $categories = $em->getRepository(Category::class)->findAll();
         return $this->render('admin/home.html.twig', [
-            'controller_name' => 'AdminController'
+            'categories' => $categories
+        ]);
+    }
+
+    #[Route('admin/pizzas/{id}', name: 'pizzas')]
+    public function pizzas(EntityManagerInterface $em, int $id)
+    {
+        $category = $em->getRepository(Category::class)->find($id);
+        return $this->render('admin/categories/pizzas.html.twig', [
+            'category' => $category
+        ]);
+    }
+
+    #[Route('/insert', name: 'insert')]
+    public function insert(Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(CategoryType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $category = $form->getData();
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render('admin/insert.html.twig', [
+            'form' => $form
         ]);
     }
 }
