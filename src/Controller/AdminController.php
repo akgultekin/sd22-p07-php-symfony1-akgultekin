@@ -40,6 +40,7 @@ class AdminController extends AbstractController
             $category = $form->getData();
             $em->persist($category);
             $em->flush();
+            $this->addFlash('success', 'Nieuwe categorie is toegevoegd!');
             return $this->redirectToRoute('home');
         }
 

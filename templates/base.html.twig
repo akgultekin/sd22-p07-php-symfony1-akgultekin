@@ -57,6 +57,13 @@
                 </div>
             </header>
         {% endblock %}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         {% block body %}{% endblock %}
     </body>
     <footer class="container-fluid p-3 bg-success text-center">
