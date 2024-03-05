@@ -1,5 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    test
+    <div class="container p-5">
+        <div class="row">
+            <div class="col">
+                <img class="img-fluid" src="{{ asset('img/pizzas/' ~ pizza.image) }}">
+            </div>
+            <div class="col">
+                <h1>{{ pizza.name }}</h1>
+                <p>{{ pizza.description }}</p>
+                <button type="button" class="btn btn-success">+ Toevoegen naar winkelmand</button>
+            </div>
+        </div>
+    </div>
 {% endblock %}

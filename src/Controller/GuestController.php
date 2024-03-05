@@ -32,10 +32,13 @@ class GuestController extends AbstractController
         ]);
     }
 
-    #[Route('/details', name: 'details')]
-    public function details(int $id = null)
+    #[Route('pizzas/details/{id}', name: 'details')]
+    public function details(EntityManagerInterface $em, int $id = null)
     {
-        return $this->render('guest/categories/details.html.twig');
+        $pizza = $em->getRepository(Pizza::class)->find($id);
+        return $this->render('guest/categories/details.html.twig', [
+            'pizza' => $pizza
+        ]);
     }
 
     #[Route('/contact', name: 'contact')]

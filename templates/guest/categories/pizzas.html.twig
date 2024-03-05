@@ -6,7 +6,7 @@
             {% for pizza in category.pizzas %}
             <div class="col">
                 <div class="card">
-                    <a class="text-decoration-none text-black" href="{{ path('details') }}">
+                    <a class="text-decoration-none text-black" href="{{ path('details', {id: pizza.id}) }}">
                         <img src="{{ asset('img/pizzas/' ~ pizza.image) }}" class="card-img-top img-fluid" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">{{ pizza.name }}</h5>
