@@ -30,7 +30,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/insert', name: 'insert')]
+    #[Route('admin/insert', name: 'insert')]
     public function insert(Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(CategoryType::class);
