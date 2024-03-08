@@ -3,7 +3,7 @@
 {% block body %}
     <div class="container d-flex p-5 my-5 text-center justify-content-center align-items-center">
         <div class="row row-cols-1 row-cols-md-3">
-            {% for pizza in category.pizzas|slice(0, 3) %}
+            {% for pizza in category.pizzas %}
             <div class="col">
                 <div class="card">
                     <a class="text-decoration-none text-black" href="{{ path('details', {id: pizza.id}) }}">

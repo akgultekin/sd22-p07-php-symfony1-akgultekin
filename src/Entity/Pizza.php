@@ -85,28 +85,4 @@ class Pizza
 
         return $this;
     }
-
-    public function getPrice(): ?string
-    {
-        return $this->price;
-    }
-
-    public function setPrice(string $price): static
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getSize(): ?string
-    {
-        return $this->size;
-    }
-
-    public function setSize(string $size): static
-    {
-        $this->size = $size;
-
-        return $this;
-    }
 }
