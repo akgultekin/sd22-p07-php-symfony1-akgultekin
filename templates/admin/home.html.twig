@@ -10,9 +10,11 @@
                             <img src="{{ asset('img/' ~ category.image) }}" class="card-img-top img-fluid" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{ category.name }}</h5>
-                                <button type="button" class="btn btn-danger" href="{{ path('delete') }}">
-                                    <i class="bi bi-trash3"></i>
-                                </button>
+                                <a href="{{ path('confirm-delete', {id: category.id}) }}">
+                                    <button type="button" class="btn btn-danger">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </a>
                             </div>
                         </a>
                     </div>

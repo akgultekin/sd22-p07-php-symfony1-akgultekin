@@ -49,9 +49,16 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/delete/{id}', name: 'delete')]
-    public function delete(int $id)
+    #[Route('admin/confirm-delete/{id}', name: 'confirm-delete')]
+    public function confirmDelete(int $id)
     {
+        return $this->render('admin/confirm_delete.html.twig');
+    }
 
+    #[Route('admin/delete/{id}', name: 'delete')]
+    public function delete(EntityManagerInterface $em, int $id)
+    {
+        $category = $em->getRepository(Category::class)->find($id);
+        return $this->redirectToRoute('confirm-delete');
     }
 }
