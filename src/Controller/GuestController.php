@@ -40,7 +40,7 @@ class GuestController extends AbstractController
         $form = $this->createForm(SizeType::class);
         return $this->render('guest/categories/details.html.twig', [
             'pizza' => $pizza,
-            
+            'form' => $form
         ]);
     }
 

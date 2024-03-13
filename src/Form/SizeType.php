@@ -16,9 +16,9 @@ class SizeType extends AbstractType
     {
         $builder
             ->add('size', ChoiceType::class, [
-                'sizes' => [
-                    'Medium' => 'Medium',
-                    'Large' => 'Large',
+                'choices' => [
+                    'Medium 25cm' => 'Medium 25cm',
+                    'Large 35cm' => 'Large 35cm',
                     'Calzone' => 'Calzone'
                 ]
             ])

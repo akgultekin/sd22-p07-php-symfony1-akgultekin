@@ -48,4 +48,10 @@ class AdminController extends AbstractController
             'form' => $form
         ]);
     }
+
+    #[Route('admin/delete/{id}', name: 'delete')]
+    public function delete(int $id)
+    {
+
+    }
 }
