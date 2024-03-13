@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Pizza;
 use App\Entity\Pizzas;
 use App\Form\CategoryType;
+use App\Form\SizeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,8 +37,10 @@ class GuestController extends AbstractController
     public function details(EntityManagerInterface $em, int $id = null)
     {
         $pizza = $em->getRepository(Pizza::class)->find($id);
+        $form = $this->createForm(SizeType::class);
         return $this->render('guest/categories/details.html.twig', [
-            'pizza' => $pizza
+            'pizza' => $pizza,
+            
         ]);
     }
 
