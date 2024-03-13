@@ -27,12 +27,6 @@ class Pizza
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
-    private ?string $price = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $size = null;
-
     public function getId(): ?int
     {
         return $this->id;

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Form\DeleteCategoryType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,16 +50,22 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/confirm-delete/{id}', name: 'confirm-delete')]
-    public function confirmDelete(int $id)
+    #[Route('admin/delete', name: 'delete')]
+    public function delete(Request $request, EntityManagerInterface $em)
     {
-        return $this->render('admin/confirm_delete.html.twig');
-    }
+        $delete = $this->createForm(DeleteCategoryType::class);
 
-    #[Route('admin/delete/{id}', name: 'delete')]
-    public function delete(EntityManagerInterface $em, int $id)
-    {
-        $category = $em->getRepository(Category::class)->find($id);
-        return $this->redirectToRoute('confirm-delete');
+        $delete->handleRequest($request);
+        if ($delete->isSubmitted()) {
+            $category = $delete->getData();
+            $em->remove($category);
+            $em->flush();
+            $this->addFlash('success', 'Deze categorie is verwijderd!');
+            return $this->redirectToRoute('/admin');
+        }
+
+        return $this->render([
+            'delete' => $delete
+        ]);
     }
 }
