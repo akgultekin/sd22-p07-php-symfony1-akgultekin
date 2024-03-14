@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Form\categories\InsertType;
 use App\Form\CategoryType;
 use App\Form\DeleteCategoryType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,24 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'admin')]
-    public function home(Request $request, EntityManagerInterface $em): Response
+    public function home(EntityManagerInterface $em): Response
     {
         $categories = $em->getRepository(Category::class)->findAll();
-        
-        $delete = $this->createForm(DeleteCategoryType::class);
-
-        $delete->handleRequest($request);
-        if ($delete->isSubmitted()) {
-            $category = $delete->getData();
-            $em->remove($category);
-            $em->flush();
-            $this->addFlash('success', 'Deze categorie is verwijderd!');
-            return $this->redirectToRoute('admin');
-        }
-
         return $this->render('admin/home.html.twig', [
             'categories' => $categories,
-            'delete' => $delete
         ]);
     }
 
@@ -47,7 +35,7 @@ class AdminController extends AbstractController
     #[Route('admin/insert', name: 'insert')]
     public function insert(Request $request, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(CategoryType::class);
+        $form = $this->createForm(InsertType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -61,5 +49,11 @@ class AdminController extends AbstractController
         return $this->render('admin/insert.html.twig', [
             'form' => $form
         ]);
+    }
+
+    #[Route('admin/delete', name: 'delete')]
+    public function delete(Request $request, EntityManagerInterface $em)
+    {
+
     }
 }
