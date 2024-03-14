@@ -14,11 +14,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'admin')]
-    public function home(EntityManagerInterface $em): Response
+    public function home(Request $request, EntityManagerInterface $em): Response
     {
         $categories = $em->getRepository(Category::class)->findAll();
+        
+        $delete = $this->createForm(DeleteCategoryType::class);
+
+        $delete->handleRequest($request);
+        if ($delete->isSubmitted()) {
+            $category = $delete->getData();
+            $em->remove($category);
+            $em->flush();
+            $this->addFlash('success', 'Deze categorie is verwijderd!');
+            return $this->redirectToRoute('admin');
+        }
+
         return $this->render('admin/home.html.twig', [
-            'categories' => $categories
+            'categories' => $categories,
+            'delete' => $delete
         ]);
     }
 
@@ -47,25 +60,6 @@ class AdminController extends AbstractController
 
         return $this->render('admin/insert.html.twig', [
             'form' => $form
-        ]);
-    }
-
-    #[Route('admin/delete', name: 'delete')]
-    public function delete(Request $request, EntityManagerInterface $em)
-    {
-        $delete = $this->createForm(DeleteCategoryType::class);
-
-        $delete->handleRequest($request);
-        if ($delete->isSubmitted()) {
-            $category = $delete->getData();
-            $em->remove($category);
-            $em->flush();
-            $this->addFlash('success', 'Deze categorie is verwijderd!');
-            return $this->redirectToRoute('/admin');
-        }
-
-        return $this->render([
-            'delete' => $delete
         ]);
     }
 }
