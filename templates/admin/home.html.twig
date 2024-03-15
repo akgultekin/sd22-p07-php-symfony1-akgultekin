@@ -11,13 +11,22 @@
                         </a>
                         <div class="card-body">
                             <h5 class="card-title">{{ category.name }}</h5>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <i class="bi bi-trash3"></i>
-                            </button>
                         </div>
                     </div>
                 </div>
             {% endfor %}
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="row">
+            <div class="col">
+                <a href="{{ path('insert') }}">
+                    <button type="button" class="btn btn-success">Toevoegen</button>
+                </a>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger">Verwijderen</button>
+            </div>
         </div>
     </div>
 {% endblock %}

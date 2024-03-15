@@ -1,8 +1,5 @@
 body {
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
-    margin: 0;
 }
 
 .carousel-item img {
@@ -12,7 +9,6 @@ body {
     overflow: hidden;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
+footer, .push {
+    height: 5rem;
 }
