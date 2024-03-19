@@ -62,9 +62,13 @@ class GuestController extends AbstractController
         return $this->render('guest/signup.html.twig');
     }
 
-    #[Route('/order', name: 'order')]
-    public function order()
+    public function viewCart()
     {
-        return $this->render('guest/order.html.twig');
+
+    }
+
+    public function addToCart()
+    {
+
     }
 }
