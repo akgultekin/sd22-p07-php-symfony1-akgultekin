@@ -36,7 +36,6 @@ class AdminController extends AbstractController
     public function insert(Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(InsertCategory::class);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $category = $form->getData();
@@ -51,22 +50,16 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/delete', name: 'delete')]
-    public function delete(Request $request, EntityManagerInterface $em): Response
+    #[Route('admin/delete/{id}', name: 'delete')]
+    public function delete(EntityManagerInterface $em, int $id): Response
     {
-        $form = $this->createForm(DeleteCategoryType::class);
+        $category = $em->getRepository(Category::class)->find($id);
+        $em->remove($category);
+        $em->flush();
+        $this->addFlash('success', 'Deze categorie is verwijderd!');
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $category = $form->getData();
-            $em->remove($category);
-            $em->flush();
-            $this->addFlash('success', 'Deze categorie is verwijderd!');
-            return $this->redirectToRoute('admin');
-        }
-
-        return $this->render('admin/delete.html.twig', [
-            'form' => $form
+        return $this->render('admin/home.html.twig', [
+            'category' => $category
         ]);
     }
 }

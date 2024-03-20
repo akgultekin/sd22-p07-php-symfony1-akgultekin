@@ -4,7 +4,7 @@ namespace App\Form\categories;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +15,7 @@ class InsertCategory extends AbstractType
         $builder
             ->add('name')
             ->add('image')
-            ->add('toevoegen', SubmitType::class)
+            ->add('toevoegen', ButtonType::class)
         ;
     }
 

@@ -20,7 +20,6 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[Assert\NotBlank(message: 'Vul een foto in!')]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
