@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 14 feb 2024 om 15:03
+-- Gegenereerd op: 22 mrt 2024 om 11:04
 -- Serverversie: 10.4.24-MariaDB
 -- PHP-versie: 8.1.6
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `sopranos`
 --
+CREATE DATABASE IF NOT EXISTS `sopranos` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `sopranos`;
 
 -- --------------------------------------------------------
 
@@ -27,6 +29,7 @@ SET time_zone = "+00:00";
 -- Tabelstructuur voor tabel `category`
 --
 
+DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -48,6 +51,7 @@ INSERT INTO `category` (`id`, `name`, `image`) VALUES
 -- Tabelstructuur voor tabel `doctrine_migration_versions`
 --
 
+DROP TABLE IF EXISTS `doctrine_migration_versions`;
 CREATE TABLE `doctrine_migration_versions` (
   `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
@@ -59,7 +63,11 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20240214133614', '2024-02-14 14:36:20', 82);
+('DoctrineMigrations\\Version20240214133614', '2024-02-14 14:36:20', 82),
+('DoctrineMigrations\\Version20240313081420', '2024-03-22 09:42:44', 8),
+('DoctrineMigrations\\Version20240322090042', '2024-03-22 10:00:48', 64),
+('DoctrineMigrations\\Version20240322091230', '2024-03-22 10:12:51', 54),
+('DoctrineMigrations\\Version20240322091600', '2024-03-22 10:16:08', 54);
 
 -- --------------------------------------------------------
 
@@ -67,6 +75,7 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 -- Tabelstructuur voor tabel `messenger_messages`
 --
 
+DROP TABLE IF EXISTS `messenger_messages`;
 CREATE TABLE `messenger_messages` (
   `id` bigint(20) NOT NULL,
   `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -80,12 +89,38 @@ CREATE TABLE `messenger_messages` (
 -- --------------------------------------------------------
 
 --
+-- Tabelstructuur voor tabel `order`
+--
+
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
+  `id` int(11) NOT NULL,
+  `pizza_id` int(11) DEFAULT NULL,
+  `fname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone_number` int(11) NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `street` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `zip` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `order`
+--
+
+INSERT INTO `order` (`id`, `pizza_id`, `fname`, `lname`, `phone_number`, `city`, `street`, `zip`) VALUES
+(4, NULL, 'Akin', 'Gultekin', 2147483647, 'Den Haag', 'Bouwlust', '1234AB');
+
+-- --------------------------------------------------------
+
+--
 -- Tabelstructuur voor tabel `pizza`
 --
 
+DROP TABLE IF EXISTS `pizza`;
 CREATE TABLE `pizza` (
   `id` int(11) NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `category_id` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL
@@ -132,6 +167,13 @@ ALTER TABLE `messenger_messages`
   ADD KEY `IDX_75EA56E016BA31DB` (`delivered_at`);
 
 --
+-- Indexen voor tabel `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `IDX_F5299398D41D1D42` (`pizza_id`);
+
+--
 -- Indexen voor tabel `pizza`
 --
 ALTER TABLE `pizza`
@@ -155,6 +197,12 @@ ALTER TABLE `messenger_messages`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT voor een tabel `order`
+--
+ALTER TABLE `order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT voor een tabel `pizza`
 --
 ALTER TABLE `pizza`
@@ -163,6 +211,12 @@ ALTER TABLE `pizza`
 --
 -- Beperkingen voor geëxporteerde tabellen
 --
+
+--
+-- Beperkingen voor tabel `order`
+--
+ALTER TABLE `order`
+  ADD CONSTRAINT `FK_F5299398D41D1D42` FOREIGN KEY (`pizza_id`) REFERENCES `pizza` (`id`);
 
 --
 -- Beperkingen voor tabel `pizza`
