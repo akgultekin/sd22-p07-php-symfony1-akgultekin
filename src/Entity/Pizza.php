@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PizzaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,9 +25,16 @@ class Pizza
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\ManyToOne(inversedBy: 'pizzas')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'category')]
     private ?Category $category = null;
+
+    #[ORM\OneToMany(mappedBy: 'pizza', targetEntity: Order::class)]
+    private Collection $pizza;
+
+    public function __construct()
+    {
+        $this->pizza = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -76,6 +85,36 @@ class Pizza
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getPizza(): Collection
+    {
+        return $this->pizza;
+    }
+
+    public function addPizza(Order $pizza): static
+    {
+        if (!$this->pizza->contains($pizza)) {
+            $this->pizza->add($pizza);
+            $pizza->setPizza($this);
+        }
+
+        return $this;
+    }
+
+    public function removePizza(Order $pizza): static
+    {
+        if ($this->pizza->removeElement($pizza)) {
+            // set the owning side to null (unless already changed)
+            if ($pizza->getPizza() === $this) {
+                $pizza->setPizza(null);
+            }
+        }
 
         return $this;
     }

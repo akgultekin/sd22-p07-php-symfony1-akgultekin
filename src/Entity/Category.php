@@ -26,9 +26,13 @@ class Category
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Pizza::class)]
     private Collection $pizzas;
 
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Pizza::class)]
+    private Collection $category;
+
     public function __construct()
     {
         $this->pizzas = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,6 +88,36 @@ class Category
             // set the owning side to null (unless already changed)
             if ($pizza->getCategory() === $this) {
                 $pizza->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Pizza>
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(Pizza $category): static
+    {
+        if (!$this->category->contains($category)) {
+            $this->category->add($category);
+            $category->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Pizza $category): static
+    {
+        if ($this->category->removeElement($category)) {
+            // set the owning side to null (unless already changed)
+            if ($category->getCategory() === $this) {
+                $category->setCategory(null);
             }
         }
 

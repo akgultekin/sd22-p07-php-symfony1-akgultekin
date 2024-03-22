@@ -6,6 +6,7 @@ use App\Entity\Category;
 use App\Entity\Pizza;
 use App\Entity\Pizzas;
 use App\Form\CategoryType;
+use App\Form\OrderType;
 use App\Form\SizeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,13 +63,9 @@ class GuestController extends AbstractController
         return $this->render('guest/signup.html.twig');
     }
 
-    public function viewCart()
+    #[Route('/order/{id}', name: 'order')]
+    public function order(Request $request, EntityManagerInterface $em, int $id)
     {
-
-    }
-
-    public function addToCart()
-    {
-
+        $form = $this->createForm(OrderType::class);
     }
 }
