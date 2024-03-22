@@ -69,7 +69,7 @@ class GuestController extends AbstractController
         $form = $this->createForm(OrderType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $order = $form->getData();
+            $order = $form->getData($id);
             $em->persist($order);
             $em->flush();
             return $this->redirectToRoute('orders');

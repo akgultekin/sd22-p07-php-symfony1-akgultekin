@@ -10,7 +10,7 @@
                 <h1>{{ pizza.name }}</h1>
                 <p>{{ pizza.description }}</p>
                 {{ form(form) }}
-                <button type="button" class="btn btn-success">+ Toevoegen naar winkelmand</button>
+                <a href="{{ path('order', {id: pizza.id}) }}" type="button" class="btn btn-success">Bestellen</a>
             </div>
         </div>
     </div>
