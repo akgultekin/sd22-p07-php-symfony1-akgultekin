@@ -67,5 +67,22 @@ class GuestController extends AbstractController
     public function order(Request $request, EntityManagerInterface $em, int $id)
     {
         $form = $this->createForm(OrderType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $order = $form->getData();
+            $em->persist($order);
+            $em->flush();
+            return $this->redirectToRoute('orders');
+        }
+
+        return $this->render('guest/order.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('order/orders/{id}', name: 'orders')]
+    public function showOrder()
+    {
+
     }
 }
