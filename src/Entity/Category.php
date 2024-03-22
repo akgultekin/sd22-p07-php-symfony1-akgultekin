@@ -24,14 +24,10 @@ class Category
     private ?string $image = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Pizza::class)]
-    private Collection $pizzas;
-
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Pizza::class)]
     private Collection $category;
 
     public function __construct()
     {
-        $this->pizzas = new ArrayCollection();
         $this->category = new ArrayCollection();
     }
 
@@ -60,36 +56,6 @@ class Category
     public function setImage(?string $image): static
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Pizza>
-     */
-    public function getPizzas(): Collection
-    {
-        return $this->pizzas;
-    }
-
-    public function addPizza(Pizza $pizza): static
-    {
-        if (!$this->pizzas->contains($pizza)) {
-            $this->pizzas->add($pizza);
-            $pizza->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removePizza(Pizza $pizza): static
-    {
-        if ($this->pizzas->removeElement($pizza)) {
-            // set the owning side to null (unless already changed)
-            if ($pizza->getCategory() === $this) {
-                $pizza->setCategory(null);
-            }
-        }
 
         return $this;
     }

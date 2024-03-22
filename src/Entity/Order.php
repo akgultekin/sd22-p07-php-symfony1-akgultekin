@@ -29,7 +29,7 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $street = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 6)]
     private ?string $zip = null;
 
     #[ORM\ManyToOne(inversedBy: 'pizza')]
