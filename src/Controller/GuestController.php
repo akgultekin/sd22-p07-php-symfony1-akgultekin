@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Order;
 use App\Entity\Pizza;
 use App\Entity\Pizzas;
 use App\Form\CategoryType;

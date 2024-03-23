@@ -20,8 +20,8 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $lname = null;
 
-    #[ORM\Column]
-    private ?int $phone_number = null;
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $city = null;
@@ -64,14 +64,14 @@ class Order
         return $this;
     }
 
-    public function getPhoneNumber(): ?int
+    public function getEmail(): ?string
     {
-        return $this->phone_number;
+        return $this->email;
     }
 
-    public function setPhoneNumber(int $phone_number): static
+    public function setEmail(string $email): static
     {
-        $this->phone_number = $phone_number;
+        $this->email = $email;
 
         return $this;
     }

@@ -3,5 +3,42 @@
 {% block body %}
     <div class="container p-5 my-5 text-center">
         <h1>Bestellingen</h1>
+        {% for order in orders %}
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Pizza's</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>pizza</td>
+                        <td>
+                            {{ order.fname }}
+                            {{ order.lname }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>pizza</td>
+                        <td>
+                            {{ order.email }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>pizza</td>
+                        <td>
+                            {{ order.city }}
+                            {{ order.street }}
+                            {{ order.zip }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 {% endblock %}
