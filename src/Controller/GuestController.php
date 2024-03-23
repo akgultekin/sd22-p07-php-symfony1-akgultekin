@@ -69,10 +69,12 @@ class GuestController extends AbstractController
         $form = $this->createForm(OrderType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $pizza = $em->getRepository(Pizza::class)->find($id);
             $order = $form->getData($id);
+            $order->setPizza($pizza);
             $em->persist($order);
             $em->flush();
-            return $this->redirectToRoute('orders');
+            return $this->redirectToRoute('orders', ['id' => $pizza->getId()]);
         }
 
         return $this->render('guest/order.html.twig', [
@@ -81,8 +83,11 @@ class GuestController extends AbstractController
     }
 
     #[Route('order/orders/{id}', name: 'orders')]
-    public function showOrder()
+    public function showOrder(EntityManagerInterface $em, int $id)
     {
-
+        $orders = $em->getRepository(Order::class)->findAll();
+        return $this->render('guest/orders.html.twig', [
+            'orders' => $orders
+        ]);
     }
 }
