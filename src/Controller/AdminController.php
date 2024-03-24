@@ -34,7 +34,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/insert', name: 'admin_insert')]
+    #[Route('admin/insert/category', name: 'admin_insert_category')]
     public function insert(Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(InsertCategory::class);
@@ -52,8 +52,8 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/delete/{id}', name: 'admin_delete')]
-    public function delete(EntityManagerInterface $em, int $id): Response
+    #[Route('admin/delete/pizza/{id}', name: 'admin_delete_pizza')]
+    public function deletePizza(EntityManagerInterface $em, int $id): Response
     {
         $pizza = $em->getRepository(Pizza::class)->find($id);
         $em->remove($pizza);

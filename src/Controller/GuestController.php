@@ -89,4 +89,10 @@ class GuestController extends AbstractController
             'orders' => $orders
         ]);
     }
+
+    #[Route('delete/order/{id}', name: 'delete_order')]
+    public function deleteOrder(EntityManagerInterface $em)
+    {
+
+    }
 }

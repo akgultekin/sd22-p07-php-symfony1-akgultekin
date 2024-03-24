@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container p-5 my-5 text-center">
+        <h1>Bestellingen</h1>
+        {% for order in orders %}
+        <hr>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Pizza's</th>
+                        <th scope="col">Address</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            {{ order.pizza.size }}
+                            {{ order.pizza.name }} <br>
+                            <h6>
+                                €{{ order.pizza.price }}
+                            </h6>
+                        </td>
+                        <td>
+                            {{ order.fname }}
+                            {{ order.lname }} <br>
+                            {{ order.email }} <br>
+                            {{ order.city }}
+                            {{ order.street }}
+                            {{ order.zip }}
+                        </td>
+                        <td>
+                            <a href="{{ path('admin_delete_order', {id: pizza.id}) }}" type="button" class="btn btn-danger">Verwijderen</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+{% endblock %}
