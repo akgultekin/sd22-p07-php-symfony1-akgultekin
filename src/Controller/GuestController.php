@@ -82,15 +82,17 @@ class GuestController extends AbstractController
     }
 
     #[Route('order/orders/{id}', name: 'orders')]
-    public function showOrder(EntityManagerInterface $em)
+    public function showOrder(EntityManagerInterface $em, int $id)
     {
         $orders = $em->getRepository(Order::class)->findAll();
+        $order = $em->getRepository(Order::class)->find($id);
         return $this->render('guest/orders.html.twig', [
+            'order' => $order,
             'orders' => $orders
         ]);
     }
 
-    #[Route('delete/order/{id}', name: 'delete_order')]
+    #[Route('order/orders/{id}', name: 'delete_order')]
     public function deleteOrder(EntityManagerInterface $em, int $id)
     {
         $orders = $em->getRepository(Order::class)->findAll();
@@ -98,10 +100,6 @@ class GuestController extends AbstractController
         $em->remove($order);
         $em->flush();
         $this->addFlash('success', 'Deze bestelling is verwijderd!');
-
-        return $this->render('guest/orders.html.twig', [
-            'orders' => $orders,
-            'order' => $order
-        ]);
+        return $this->redirectToRoute('orders', ['id' => $order->getId()]);
     }
 }

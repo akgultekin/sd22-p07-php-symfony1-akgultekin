@@ -8,6 +8,8 @@ use App\Entity\Pizza;
 use App\Form\categories\DeleteCategoryType;
 use App\Form\categories\InsertCategory;
 use App\Form\CategoryType;
+use App\Form\DeletePizzaType;
+use App\Form\InsertPizzaType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,17 +36,17 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/insert/category', name: 'admin_insert_category')]
-    public function insert(Request $request, EntityManagerInterface $em): Response
+    #[Route('admin/insert/pizza', name: 'admin_insert_pizza')]
+    public function insertPizza(Request $request, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(InsertCategory::class);
+        $form = $this->createForm(InsertPizzaType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $category = $form->getData();
-            $em->persist($category);
+            $pizza = $form->getData();
+            $em->persist($pizza);
             $em->flush();
-            $this->addFlash('success', 'Nieuwe categorie is toegevoegd!');
-            return $this->redirectToRoute('admin');
+            $this->addFlash('success', 'Nieuwe pizza is toegevoegd!');
+            return $this->redirectToRoute('admin_pizzas');
         }
 
         return $this->render('admin/insert.html.twig', [
@@ -52,18 +54,21 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/delete/pizza/{id}', name: 'admin_delete_pizza')]
-    public function deletePizza(EntityManagerInterface $em, int $id): Response
+    #[Route('admin/pizzas/delete/{id}', name: 'admin_delete_pizza')]
+    public function deletePizza(Request $request, EntityManagerInterface $em, int $id): Response
     {
-        $category = $em->getRepository(Category::class)->find($id);
-        $pizza = $em->getRepository(Pizza::class)->find($id);
-        $em->remove($pizza);
-        $em->flush();
-        $this->addFlash('success', 'Deze categorie is verwijderd!');
+        $form = $this->createForm(DeletePizzaType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted()) {
+            $pizza = $em->getRepository(Pizza::class)->find($id);
+            $em->remove($pizza);
+            $em->flush();
+            $this->addFlash('success', 'Deze pizza is verwijderd!');
+            return $this->redirectToRoute('admin_pizzas', ['id' => $pizza->getCategory()->getId()]);
+        }
 
-        return $this->render('admin/categories/pizzas.html.twig', [
-            'category' => $category,
-            'pizza' => $pizza
+        return $this->render('admin/delete.html.twig', [
+            'form' => $form
         ]);
     }
 }
