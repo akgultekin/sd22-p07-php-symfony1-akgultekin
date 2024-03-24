@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Order;
+use App\Entity\Pizza;
 use App\Form\categories\DeleteCategoryType;
 use App\Form\categories\InsertCategory;
 use App\Form\CategoryType;
@@ -23,7 +25,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/pizzas/{id}', name: 'pizzas')]
+    #[Route('admin/pizzas/{id}', name: 'admin_pizzas')]
     public function pizzas(EntityManagerInterface $em, int $id)
     {
         $category = $em->getRepository(Category::class)->find($id);
@@ -32,7 +34,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/insert', name: 'insert')]
+    #[Route('admin/insert', name: 'admin_insert')]
     public function insert(Request $request, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(InsertCategory::class);
@@ -50,16 +52,16 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('admin/delete/{id}', name: 'delete')]
+    #[Route('admin/delete/{id}', name: 'admin_delete')]
     public function delete(EntityManagerInterface $em, int $id): Response
     {
-        $category = $em->getRepository(Category::class)->find($id);
-        $em->remove($category);
+        $pizza = $em->getRepository(Pizza::class)->find($id);
+        $em->remove($pizza);
         $em->flush();
         $this->addFlash('success', 'Deze categorie is verwijderd!');
 
-        return $this->render('admin/home.html.twig', [
-            'category' => $category
+        return $this->render('admin/categories/pizzas.html.twig', [
+            'pizza' => $pizza
         ]);
     }
 }
