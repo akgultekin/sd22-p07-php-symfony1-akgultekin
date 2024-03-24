@@ -17,7 +17,7 @@ class OrderType extends AbstractType
         $builder
             ->add('fname')
             ->add('lname')
-            ->add('phone_number')
+            ->add('email')
             ->add('city')
             ->add('street')
             ->add('zip')

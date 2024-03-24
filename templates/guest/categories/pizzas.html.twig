@@ -4,12 +4,19 @@
     <div class="container d-flex p-5 my-5 text-center justify-content-center align-items-center">
         <div class="row row-cols-1 row-cols-md-3">
             {% for pizza in category.category %}
-            <div class="col">
+            <div class="col p-2">
                 <div class="card">
                     <a class="text-decoration-none text-black" href="{{ path('details', {id: pizza.id}) }}">
                         <img src="{{ asset('img/pizzas/' ~ pizza.image) }}" class="card-img-top img-fluid" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">{{ pizza.name }}</h5>
+                            <p class="card-title">
+                                {{ pizza.size }}
+                                {{ pizza.name }} <br>
+                            </p>
+                            <h6>
+                                €{{ pizza.price }}
+                            </h6>
+                            <a href="{{ path('order', {id: pizza.id}) }}" type="button" class="btn btn-success">Bestellen</a>
                         </div>
                     </a>
                 </div>

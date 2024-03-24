@@ -4,6 +4,7 @@
     <div class="container p-5 my-5 text-center">
         <h1>Bestellingen</h1>
         {% for order in orders %}
+        <hr>
         <div class="row">
             <div class="col">
                 <table class="table">
@@ -15,21 +16,17 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>pizza</td>
+                        <td>
+                            {{ order.pizza.size }}
+                            {{ order.pizza.name }} <br>
+                            <h6>
+                                €{{ order.pizza.price }}
+                            </h6>
+                        </td>
                         <td>
                             {{ order.fname }}
-                            {{ order.lname }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>pizza</td>
-                        <td>
-                            {{ order.email }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>pizza</td>
-                        <td>
+                            {{ order.lname }} <br>
+                            {{ order.email }} <br>
                             {{ order.city }}
                             {{ order.street }}
                             {{ order.zip }}
@@ -39,6 +36,7 @@
                 </table>
             </div>
         </div>
+        <hr>
         {% endfor %}
     </div>
 {% endblock %}

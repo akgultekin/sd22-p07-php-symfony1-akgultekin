@@ -39,10 +39,8 @@ class GuestController extends AbstractController
     public function details(EntityManagerInterface $em, int $id = null)
     {
         $pizza = $em->getRepository(Pizza::class)->find($id);
-        $form = $this->createForm(SizeType::class);
         return $this->render('guest/categories/details.html.twig', [
-            'pizza' => $pizza,
-            'form' => $form
+            'pizza' => $pizza
         ]);
     }
 
