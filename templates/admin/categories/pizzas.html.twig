@@ -17,7 +17,7 @@
                                 €{{ pizza.price }}
                             </h6>
                             <a href="{{ path('order', {id: pizza.id}) }}" type="button" class="btn btn-success">Bestellen</a>
-                            <a href="{{ path('admin_delete', {id: pizza.id}) }}" type="button" class="btn btn-danger">Verwijderen</a>
+                            <a href="{{ path('admin_delete_pizza', {id: pizza.id}) }}" type="button" class="btn btn-danger">Verwijderen</a>
                         </div>
                     </a>
                 </div>

@@ -31,6 +31,9 @@
                             {{ order.street }}
                             {{ order.zip }}
                         </td>
+                        <td>
+                            <a href="{{ path('delete_order', {id: order.id}) }}" type="button" class="btn btn-danger">Verwijderen</a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

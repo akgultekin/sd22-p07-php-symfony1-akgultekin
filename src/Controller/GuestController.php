@@ -91,8 +91,17 @@ class GuestController extends AbstractController
     }
 
     #[Route('delete/order/{id}', name: 'delete_order')]
-    public function deleteOrder(EntityManagerInterface $em)
+    public function deleteOrder(EntityManagerInterface $em, int $id)
     {
+        $orders = $em->getRepository(Order::class)->findAll();
+        $order = $em->getRepository(Order::class)->find($id);
+        $em->remove($order);
+        $em->flush();
+        $this->addFlash('success', 'Deze bestelling is verwijderd!');
 
+        return $this->render('guest/orders.html.twig', [
+            'orders' => $orders,
+            'order' => $order
+        ]);
     }
 }

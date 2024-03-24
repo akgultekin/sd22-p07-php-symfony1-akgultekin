@@ -55,12 +55,14 @@ class AdminController extends AbstractController
     #[Route('admin/delete/pizza/{id}', name: 'admin_delete_pizza')]
     public function deletePizza(EntityManagerInterface $em, int $id): Response
     {
+        $category = $em->getRepository(Category::class)->find($id);
         $pizza = $em->getRepository(Pizza::class)->find($id);
         $em->remove($pizza);
         $em->flush();
         $this->addFlash('success', 'Deze categorie is verwijderd!');
 
         return $this->render('admin/categories/pizzas.html.twig', [
+            'category' => $category,
             'pizza' => $pizza
         ]);
     }
