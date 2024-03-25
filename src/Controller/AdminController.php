@@ -42,11 +42,12 @@ class AdminController extends AbstractController
         $form = $this->createForm(InsertPizzaType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $pizza = $form->getData();
-            $em->persist($pizza);
+            $insert = new Pizza();
+            $insert = $form->getData();
+            $em->persist($insert);
             $em->flush();
             $this->addFlash('success', 'Nieuwe pizza is toegevoegd!');
-            return $this->redirectToRoute('admin_pizzas', ['id' => $pizza->getCategory()->getId()]);
+            return $this->redirectToRoute('admin_pizzas', ['id' => $id]);
         }
 
         return $this->render('admin/insert.html.twig', [
