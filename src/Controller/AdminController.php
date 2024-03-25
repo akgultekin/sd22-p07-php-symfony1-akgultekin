@@ -39,6 +39,7 @@ class AdminController extends AbstractController
     #[Route('admin/pizzas/insert/{id}', name: 'admin_insert_pizza')]
     public function insertPizza(Request $request, EntityManagerInterface $em, int $id): Response
     {
+        $category = $em->getRepository(Category::class)->find($id);
         $pizza = new Pizza();
         $form = $this->createForm(InsertPizzaType::class, $pizza);
         $form->handleRequest($request);
@@ -47,11 +48,12 @@ class AdminController extends AbstractController
             $em->persist($pizza);
             $em->flush();
             $this->addFlash('success', 'Nieuwe pizza is toegevoegd!');
-            return $this->redirectToRoute('admin_pizzas', ['id' => $id]);
+            return $this->redirectToRoute('admin_pizzas', ['id' => $category->getId()]);
         }
 
         return $this->render('admin/insert.html.twig', [
-            'form' => $form
+            'form' => $form,
+            'category' => $category
         ]);
     }
 
