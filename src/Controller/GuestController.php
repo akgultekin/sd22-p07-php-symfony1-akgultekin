@@ -7,6 +7,7 @@ use App\Entity\Order;
 use App\Entity\Pizza;
 use App\Entity\Pizzas;
 use App\Form\CategoryType;
+use App\Form\DeleteOrderType;
 use App\Form\OrderType;
 use App\Form\SizeType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\FormTypeInterface;
 
 class GuestController extends AbstractController
 {
@@ -92,14 +94,21 @@ class GuestController extends AbstractController
         ]);
     }
 
-    #[Route('order/orders/{id}', name: 'delete_order')]
-    public function deleteOrder(EntityManagerInterface $em, int $id)
+    #[Route('order/orders/delete/{id}', name: 'delete_order')]
+    public function deleteOrder(Request $request, EntityManagerInterface $em, int $id)
     {
-        $orders = $em->getRepository(Order::class)->findAll();
-        $order = $em->getRepository(Order::class)->find($id);
-        $em->remove($order);
-        $em->flush();
-        $this->addFlash('success', 'Deze bestelling is verwijderd!');
-        return $this->redirectToRoute('orders', ['id' => $order->getId()]);
+        $form = $this->createForm(DeleteOrderType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $order = $em->getRepository(Order::class)->find($id);
+            $em->remove($order);
+            $em->flush();
+            $this->addFlash('success', 'Deze bestelling is verwijderd!');
+            return $this->redirectToRoute('orders', ['id' => $order->getPizza()->getId()]);
+        }
+
+        return $this->render('guest/delete_order.html.twig', [
+            'form' => $form
+        ]);
     }
 }
